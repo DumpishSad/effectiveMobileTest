@@ -20,13 +20,13 @@
    ```
    
 2. Создайте и активируйте виртуальное окружение
-   ```bash
-   python -m venv .venv
-   ```
-  Для Windows:
-  ```bash
-  .venv\Scripts\activate
-   ```
+      ```bash
+      python -m venv .venv
+      ```
+     Для Windows:
+     ```bash
+     .venv\Scripts\activate
+      ```
 
   Для macOS/Linux:
   ```bash
