@@ -15,24 +15,30 @@
 
    Склонируйте проект с GitHub:
    ```bash
-   git clone https://github.com/ваш_пользователь/название_проекта.git
-   cd название_проекта
+   https://github.com/DumpishSad/effectiveMobileTest.git
+   cd cafe_manager
    ```
    
-2. **Создайте и активируйте виртуальное окружение**
-      python -m venv .venv
-     # Для Windows:
-     .venv\Scripts\activate
-     # Для macOS/Linux:
-     source .venv/bin/activate
-3. **Установите зависимости Убедитесь, что находитесь в активированном виртуальном окружении:**
+2. Создайте и активируйте виртуальное окружение
+   ```bash
+   python -m venv .venv
+   ```
+  ### Для Windows:
+  ```bash
+  .venv\Scripts\activate
+   ```
+  ### Для macOS/Linux:
+  ```bash
+  source .venv/bin/activate
+   ```
+4. **Установите зависимости Убедитесь, что находитесь в активированном виртуальном окружении:**
    pip install -r requirements.txt
-4. **Примените миграции базы данных Выполните команды для настройки базы данных:**
+5. **Примените миграции базы данных Выполните команды для настройки базы данных:**
    python manage.py makemigrations
    python manage.py migrate
-5. **Создайте суперпользователя (опционально)**
+6. **Создайте суперпользователя (опционально)**
    python manage.py createsuperuser
-6. **Запустите сервер**
+7. **Запустите сервер**
    python manage.py runserver 
 
 ## Тесты
