@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <style>
+        /* Основные стили для всей страницы */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("{% static 'home_image.jpg' %}");
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Стиль для центральной панели */
+        .panel {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        /* Заголовок на панели */
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
+
+        /* Стили кнопок */
+        .button {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 12px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        /* Эффект при наведении на кнопки */
+        .button:hover {
+            background-color: #0056b3; /* Темно-синий цвет */
+            transform: translateY(-2px); /* Эффект поднятия */
+        }
+    </style>
+</head>
+<body>
+    <!-- Центральная панель с навигацией -->
+    <div class="panel">
+        <!-- Заголовок -->
+        <h1>Добро пожаловать в систему управления кафе</h1>
+
+        <!-- Ссылка на список заказов -->
+        <a href="{% url 'order_list' %}" class="button">Список заказов</a>
+
+        <!-- Ссылка на страницу добавления заказа -->
+        <a href="{% url 'order_create' %}" class="button">Добавить заказ</a>
+
+        <!-- Ссылка на страницу расчета выручки -->
+        <a href="{% url 'calculate_revenue' %}" class="button">Расчёт выручки</a>
+    </div>
+</body>
+</html>

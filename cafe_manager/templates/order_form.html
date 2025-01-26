@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить заказ</title>
+    <style>
+        /* Основной стиль страницы */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("{% static 'add_image.jpg' %}");
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        /* Кнопка "Назад" */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.2s, transform 0.2s;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+        }
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Стиль формы */
+        form {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Поля ввода */
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            backdrop-filter: blur(3px);
+        }
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Кнопка "Сохранить" */
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Заголовок формы */
+        h1 {
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Секция для сообщений */
+        .messages {
+            margin-bottom: 20px;
+        }
+        .messages .error {
+            color: #dc3545;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .messages .success {
+            color: #28a745;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <!-- Кнопка "Назад" -->
+    <a href="{% url 'order_list' %}" class="back-button">
+        &#8592; <span>Назад</span>
+    </a>
+
+    <!-- Форма добавления заказа -->
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Заголовок формы -->
+        <h1>Добавить заказ</h1>
+
+        <!-- Секция для вывода сообщений -->
+        <div class="messages">
+            {% for message in messages %}
+            <div class="{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+
+        <!-- Поле ввода номера стола -->
+        <input type="text" name="table_number" placeholder="Номер стола"
+               value="{{ table_number|default:'' }}" required>
+
+        <!-- Поле ввода блюд -->
+        <input type="text" name="items" placeholder="Блюда (формат: блюдо:цена, блюдо:цена)"
+               value="{{ items|default:'' }}" required>
+
+        <!-- Кнопка сохранения -->
+        <button type="submit">Сохранить</button>
+    </form>
+</body>
+</html>

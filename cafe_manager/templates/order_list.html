@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список заказов</title>
+    <style>
+        /* Основной стиль для всей страницы */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("{% static 'food_list_image.jpg' %}");
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            padding: 20px;
+            margin: 0;
+            color: #fff;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Кнопка "Назад" в верхнем левом углу */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: rgba(255, 192, 203, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        .back-button:hover {
+            background-color: rgba(255, 192, 203, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Контейнер для выравнивания основного контента */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Заголовок страницы и строка поиска */
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 20px;
+            min-height: 100px;
+        }
+
+        /* Основной заголовок страницы */
+        h1 {
+            margin: 0;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 1);
+        }
+
+        /* Контейнер для кнопки поиска и строки ввода */
+        .search-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        /* Форма поиска */
+        .search-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: visibility 0.3s, opacity 0.3s, transform 0.3s;
+            width: 100%;
+        }
+        .search-form.active {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Поля ввода и выпадающий список */
+        .search-form input,
+        .search-form select {
+            padding: 10px;
+            border-radius: 20px;
+            border: none;
+            background-color: rgba(255, 192, 203, 0.3);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            font-size: 14px;
+        }
+        .search-form input::placeholder {
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Иконка поиска */
+        .search-icon {
+            cursor: pointer;
+            font-size: 20px;
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        .search-icon:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Сетка для отображения заказов */
+        .order-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        /* Карточка заказа */
+        .order-tile {
+            background-color: rgba(255, 192, 203, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .order-tile:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Стиль заголовков и текста на карточках */
+        .order-tile h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .order-tile p {
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        /* Кнопки управления заказами */
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+        select {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            backdrop-filter: blur(5px);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+            font-size: 14px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        select:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        select option {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+        }
+
+        /* Кнопка удаления заказа */
+        .button.delete {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            text-decoration: none;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        .button.delete:hover {
+            background-color: #a71d2a;
+            transform: translateY(-2px);
+        }
+    </style>
+    <script>
+        /* Функция для отображения строки поиска */
+        function toggleSearch() {
+            const searchForm = document.querySelector('.search-form');
+            searchForm.classList.toggle('active');
+        }
+
+        /* Функция для обновления статуса заказа */
+        function updateStatus(orderId) {
+            const selectElement = document.getElementById(`status-select-${orderId}`);
+            const newStatus = selectElement.value;
+
+            fetch(`/update_status/${orderId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+                body: JSON.stringify({ status: newStatus }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Статус успешно обновлён!');
+                    location.reload();
+                } else {
+                    alert('Ошибка при обновлении статуса.');
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <a href="{% url 'home' %}" class="back-button">
+        &#8592; <span>Назад</span>
+    </a>
+    <div class="container">
+        <!-- Вывод сообщений об ошибках или успехах -->
+        {% if messages %}
+        <div>
+            {% for message in messages %}
+            <div style="color: red; font-weight: bold; text-align: center; margin-bottom: 10px;">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Заголовок и строка поиска -->
+        <div class="header">
+            <div class="search-controls">
+                <h1>Список заказов</h1>
+                <div class="search-icon" onclick="toggleSearch()">&#128269;</div>
+            </div>
+            <form method="get" action="{% url 'order_list' %}" class="search-form">
+                <input type="text" name="query" placeholder="Найти заказ" value="{{ query }}">
+                <select name="status" onchange="this.form.submit()">
+                    <option value="">Все</option>
+                    <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>В ожидании</option>
+                    <option value="ready" {% if status_filter == 'ready' %}selected{% endif %}>Готово</option>
+                    <option value="paid" {% if status_filter == 'paid' %}selected{% endif %}>Оплачено</option>
+                </select>
+            </form>
+        </div>
+
+        <!-- Сетка заказов -->
+        <div class="order-grid">
+            {% for order in orders %}
+            <div class="order-tile">
+                <h2>Заказ #{{ order.id }}</h2>
+                <p><strong>Стол:</strong> {{ order.table_number }}</p>
+                <p><strong>Позиции:</strong> {{ order.parsed_items|join:", " }}</p>
+                <p><strong>Общая сумма:</strong> {{ order.total_price }} ₽</p>
+                <p><strong>Статус:</strong> {{ order.get_status_display }}</p>
+                <div class="buttons">
+                    <select id="status-select-{{ order.id }}" onchange="updateStatus({{ order.id }})">
+                        <option value="pending" {% if order.status == 'pending' %}selected{% endif %}>В ожидании</option>
+                        <option value="ready" {% if order.status == 'ready' %}selected{% endif %}>Готово</option>
+                        <option value="paid" {% if order.status == 'paid' %}selected{% endif %}>Оплачено</option>
+                    </select>
+                    <a href="{% url 'order_delete' order.id %}" class="button delete">Удалить</a>
+                </div>
+            </div>
+            {% empty %}
+            <p>Нет заказов.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
