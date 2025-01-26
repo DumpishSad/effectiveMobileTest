@@ -18,8 +18,8 @@
    git clone https://github.com/ваш_пользователь/название_проекта.git
    cd название_проекта
 2. **Создайте и активируйте виртуальное окружение**
-   python -m venv .venv
-  # Для Windows:
-  .venv\Scripts\activate
-  # Для macOS/Linux:
-  source .venv/bin/activate
+      python -m venv .venv
+     # Для Windows:
+     .venv\Scripts\activate
+     # Для macOS/Linux:
+     source .venv/bin/activate
