@@ -25,11 +25,11 @@
 
         /* Стиль для центральной панели */
         .panel {
-            background-color: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.1); /* Прозрачный фон */
+            backdrop-filter: blur(5px); /* Эффект размытия заднего фона */
             border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6); /* Эффект выпуклости панели */
             text-align: center;
             max-width: 500px;
             width: 100%;
@@ -40,6 +40,7 @@
             font-size: 2rem;
             margin-bottom: 20px;
             text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
+        }
 
         /* Стили кнопок */
         .button {
@@ -48,19 +49,26 @@
             padding: 12px 20px;
             font-size: 16px;
             color: #fff;
-            background-color: #007bff;
+            background-color: rgba(0, 123, 255, 0.8);
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             text-decoration: none;
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s, background-color 0.2s;
+            transition: transform 0.3s, background-color 0.3s;
         }
 
         /* Эффект при наведении на кнопки */
         .button:hover {
-            background-color: #0056b3; /* Темно-синий цвет */
-            transform: translateY(-2px); /* Эффект поднятия */
+            background-color: rgba(0, 123, 255, 1);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Акцент на активных кнопках */
+        .button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
