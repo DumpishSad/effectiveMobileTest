@@ -27,6 +27,7 @@
   ```bash
   .venv\Scripts\activate
    ```
+
   Для macOS/Linux:
   ```bash
   source .venv/bin/activate
