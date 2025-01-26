@@ -28,10 +28,10 @@
      .venv\Scripts\activate
       ```
 
-  Для macOS/Linux:
-  ```bash
-  source .venv/bin/activate
-   ```
+     Для macOS/Linux:
+     ```bash
+     source .venv/bin/activate
+      ```
 4. **Установите зависимости Убедитесь, что находитесь в активированном виртуальном окружении:**
    pip install -r requirements.txt
 5. **Примените миграции базы данных Выполните команды для настройки базы данных:**
