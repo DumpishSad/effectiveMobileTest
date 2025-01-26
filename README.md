@@ -23,3 +23,17 @@
      .venv\Scripts\activate
      # Для macOS/Linux:
      source .venv/bin/activate
+3. **Установите зависимости Убедитесь, что находитесь в активированном виртуальном окружении:**
+   pip install -r requirements.txt
+4. **Примените миграции базы данных Выполните команды для настройки базы данных:**
+   python manage.py makemigrations
+   python manage.py migrate
+5. **Создайте суперпользователя (опционально)**
+   python manage.py createsuperuser
+6. **Запустите сервер**
+   python manage.py runserver 
+
+## Тесты
+
+1. **Для запуска тестов перейдите в /cafe_manager затем запускайте тесты:**
+   pytest orders/tests.py
